@@ -24,7 +24,7 @@ destination_input.addEventListener("keydown", function (event) {
         let destination_value = destination_input.value;
         if (destination_value == "") {
             destination_error.style.display = 'block'
-            destination_error.innerHTML = 'Please provide destination first'
+            destination_error.innerHTML = 'Please provide a destination first'
         } else {
             destination_error.style.display = 'none'
             getPlaces(destination_value, destinations, destination_error);
@@ -91,17 +91,17 @@ Trip_Planing.addEventListener('click', function (e) {
     let html = '';
     if (origindataset == '') {
         html = '<li>' +
-                '<i class="fas fa-location-arrow"></i> Please select origin First' +
+                '<i class="fas fa-location-arrow"></i> Please select Starting location!' +
                 '</li>'
     }
     // if destination not select show "Please select origin First".
     else if (destinationdataset == '') {
         html = '<li>' +
-                '<i class="far fa-map"></i> Please select destination First' +
+                '<i class="far fa-map"></i> Please select destination!' +
                 '</li>'
     } else if (origindataset.lat == destinationdataset.lat && origindataset.long == destinationdataset.long) {
         html = '<li>' +
-                '<i class="fas fa-exclamation"></i> Origin and destination should not be same!' +
+                '<i class="fas fa-exclamation"></i> Starting location and destination should not be same!' +
                 '</li>'
     }
     if (html != '') {
@@ -123,7 +123,7 @@ async function tripPlan(origindataset, destinationdataset) {
             .then((response) => {
                 if (response.status == 500) {
                     My_Trip_Planing.innerHTML = '<li>' +
-                            '<i class="fas fa-ban"></i> Origin or Destination is Invalid or no bus is currently available' +
+                            '<i class="fas fa-ban"></i> Starting location or Destination is Invalid or no bus is currently available' +
                             '</li>'
                 }
                 return response.json();
@@ -134,7 +134,7 @@ async function tripPlan(origindataset, destinationdataset) {
             if (i == 0) {
                 html = '<h3>Recommend trip</h3>';
             } else {
-                html = '<h3>Alternative trip ' + i + '</h3>';
+                html = '<h3>More trips ' + i + '</h3>';
             }
             let icons = {'walk': 'fa-walking', 'ride': 'fa-bus', 'transfer': 'fa-ticket-alt'}
             for (let j = 0; j < segments.length; j++) {
@@ -163,7 +163,7 @@ async function prepareHtml(list, parentDiv, errorElement) {
         parentDiv.innerHTML = html;
     } else {
         errorElement.style.display = 'block'
-        errorElement.innerHTML = 'No location found agains these keywords'
+        errorElement.innerHTML = 'No location found. Check your keywords'
     }
 }
 
@@ -173,7 +173,7 @@ function ResultMessage(ResultMessage) {
     let message = '';
     if (ResultMessage.type == 'walk') {
         if (!ResultMessage.to && ResultMessage.times.durations) {
-            message = 'Walk for ' + ResultMessage.times.durations.walking + ' winutes to your destination'
+            message = 'Walk for ' + ResultMessage.times.durations.walking + ' minutes to your destination'
         } else if (ResultMessage.to.stop) {
             message = 'Walk for ' + ResultMessage.times.durations.walking + ' minutes to next stop #' + ResultMessage.to.stop.key + ' - ' +
                     ResultMessage.to.stop.name;
