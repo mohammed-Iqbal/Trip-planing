@@ -1,20 +1,28 @@
-//Winnipeg transit api key
-const transit_API = 'Xf2XhbFqkk-DeNRN3CmA';
 // map box api key
 const mapbox_api_key = 'pk.eyJ1Ijoic2hhZG93ZW1vbiIsImEiOiJja3A2YTNxOG0wMGE1MnZwYnhuYmxwbXQ2In0.M0OtxUPbfjRNmbKrgTgrkg'
 
-
-// get element id of origins , desgination , Trip-plan and mytirp and value for press enter.
+// get element id of starting_location , desgination , Trip-plan and mytirp and value for press enter.
 let origin = document.getElementById('origins');
-let original_input = document.getElementById("origin_input");
-let origin_error = document.getElementById("origin_error");
-let Trip_Planing = document.getElementById('plan_trip');
-let My_Trip_Planing = document.getElementById('my_trip');
+let Starting_location = document.getElementById("Starting_location");
+let starting_location_error = document.getElementById("starting_location_error");
 let destination_input = document.getElementById("destination_input");
 let destination_error = document.getElementById("destination_error");
 let destinations = document.getElementById('destinations');
 
-
+Starting_location.addEventListener("keydown", function (event) {
+    // if(event.code === 'Enter') {
+   if (event.keyCode === 13) {
+       event.preventDefault();
+       let origin_value = Starting_location.value;
+       if (origin_value == "") {
+           starting_location_error.style.display = 'block'
+           starting_location_error.innerHTML = 'Please provide a starting location first'
+       } else {
+           starting_location_error.style.display = 'none'
+           getPlaces(origin_value, origin, starting_location_error);
+       }
+   }
+});
 
 //function for enter key.
 destination_input.addEventListener("keydown", function (event) {
@@ -42,6 +50,14 @@ destinations.addEventListener('click', function (e) {
 false);
 
 
+//Winnipeg transit api key
+const transit_API = 'Xf2XhbFqkk-DeNRN3CmA';
+
+let Trip_Planing = document.getElementById('plan_trip');
+let My_Trip_Planing = document.getElementById('my_trip');
+
+
+
 // Setting the search limit within the Winnipeg.
 async function getPlaces(search, parentDiv, errorElement) {
     const bboxUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?bbox=-97.325875,49.766204,-96.953987,49.99275&access_token=${mapbox_api_key}`;
@@ -56,17 +72,17 @@ async function getPlaces(search, parentDiv, errorElement) {
 }
 
 
-original_input.addEventListener("keydown", function (event) {
+Starting_location.addEventListener("keydown", function (event) {
      // if(event.code === 'Enter') {
     if (event.keyCode === 13) {
         event.preventDefault();
-        let origin_value = original_input.value;
+        let origin_value = Starting_location.value;
         if (origin_value == "") {
-            origin_error.style.display = 'block'
-            origin_error.innerHTML = 'Please provide a starting location first'
+            starting_location_error.style.display = 'block'
+            starting_location_error.innerHTML = 'Please provide a starting location first'
         } else {
-            origin_error.style.display = 'none'
-            getPlaces(origin_value, origin, origin_error);
+            starting_location_error.style.display = 'none'
+            getPlaces(origin_value, origin, starting_location_error);
         }
     }
 });
