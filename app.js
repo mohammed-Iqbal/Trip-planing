@@ -63,7 +63,7 @@ original_input.addEventListener("keydown", function (event) {
         let origin_value = original_input.value;
         if (origin_value == "") {
             origin_error.style.display = 'block'
-            origin_error.innerHTML = 'Please provide starting location first'
+            origin_error.innerHTML = 'Please provide a starting location first'
         } else {
             origin_error.style.display = 'none'
             getPlaces(origin_value, origin, origin_error);
@@ -91,7 +91,7 @@ Trip_Planing.addEventListener('click', function (e) {
     let html = '';
     if (origindataset == '') {
         html = '<li>' +
-                '<i class="fas fa-location-arrow"></i> Please select Starting location!' +
+                '<i class="fas fa-location-arrow"></i> Please select a starting location!' +
                 '</li>'
     }
     // if destination not select show "Please select origin First".
