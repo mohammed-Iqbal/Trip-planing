@@ -63,7 +63,7 @@ original_input.addEventListener("keydown", function (event) {
         let origin_value = original_input.value;
         if (origin_value == "") {
             origin_error.style.display = 'block'
-            origin_error.innerHTML = 'Please provide origin first'
+            origin_error.innerHTML = 'Please provide starting location first'
         } else {
             origin_error.style.display = 'none'
             getPlaces(origin_value, origin, origin_error);
